@@ -1,0 +1,7 @@
+aws_region        = "us-east-1"
+project_name      = "uptime"
+alert_email       = "email@ejemplo.com"
+failure_threshold = 2
+check_rate        = "rate(5 minutes)"
+max_monitors      = 20
+request_timeout_seconds = 5
