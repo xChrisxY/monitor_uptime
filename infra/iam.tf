@@ -91,3 +91,34 @@ resource "aws_iam_role_policy_attachment" "checker_lambda_logs" {
 
 
 # ROL PARA EVENTBRIDGE SCHEDULER
+data "aws_iam_policy_document" "scheduler_assume_role" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["scheduler.amazonaws.com"]
+    }
+
+    actions = ["sts:AssumeRole"]
+  }
+}
+
+resource "aws_iam_role" "scheduler" {
+  name               = "${var.project_name}-scheduler-role"
+  assume_role_policy = data.aws_iam_policy_document.scheduler_assume_role.json
+}
+
+data "aws_iam_policy_document" "scheduler_permissions" {
+  statement {
+    effect    = "Allow"
+    actions   = ["lambda:InvokeFunction"]
+    resources = [aws_lambda_function.checker.arn]
+  }
+}
+
+resource "aws_iam_role_policy" "scheduler" {
+  name   = "${var.project_name}-scheduler-policy"
+  role   = aws_iam_role.scheduler.id
+  policy = data.aws_iam_policy_document.scheduler_permissions.json
+}
