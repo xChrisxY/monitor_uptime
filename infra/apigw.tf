@@ -32,31 +32,31 @@ resource "aws_apigatewayv2_integration" "lambda" {
 resource "aws_apigatewayv2_route" "create_monitor" {
   api_id = aws_apigatewayv2_api.api.id
   route_key = "POST /monitors"
-  target = "integrations/${aws_apigatewayv2_integration.lambda.api_id}"
+  target = "integrations/${aws_apigatewayv2_integration.lambda.id}"
 }
 
 resource "aws_apigatewayv2_route" "list_monitor" {
   api_id = aws_apigatewayv2_api.api.id
   route_key = "GET /monitors"
-  target = "integrations/${aws_apigatewayv2_integration.lambda.api_id}"
+  target = "integrations/${aws_apigatewayv2_integration.lambda.id}"
 }
 
 resource "aws_apigatewayv2_route" "get_monitor" {
-  api_id = aws_apigatewayv2_api.api
+  api_id = aws_apigatewayv2_api.api.id
   route_key = "GET /monitors/{id}"
-  target = "integrations/${aws_apigatewayv2_integration.lambda.api_id}"
+  target = "integrations/${aws_apigatewayv2_integration.lambda.id}"
 }
 
 resource "aws_apigatewayv2_route" "delete_monitor" {
-  api_id = aws_apigatewayv2_api.api
-  route_key = "GET /monitors/{id}"
-  target = "integrations/${aws_apigatewayv2_integration.lambda.api_id}"
+  api_id = aws_apigatewayv2_api.api.id
+  route_key = "DELETE /monitors/{id}"
+  target = "integrations/${aws_apigatewayv2_integration.lambda.id}"
 }
 
 resource "aws_apigatewayv2_route" "update_monitor" {
-  api_id = aws_apigatewayv2_api.api
-  route_key = "GET /monitors/{id}"
-  target = "integrations/${aws_apigatewayv2_integration.lambda.api_id}"
+  api_id = aws_apigatewayv2_api.api.id
+  route_key = "PATCH /monitors/{id}"
+  target = "integrations/${aws_apigatewayv2_integration.lambda.id}"
 }
 
 # STAGE (ambiente de despliegue)

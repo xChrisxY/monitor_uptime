@@ -13,7 +13,7 @@ def lambda_handler(event, context):
 
       routes = {
             'POST /monitors': lambda: create_monitor(body),
-            'GET /monitors': lambda: get_monitors(),
+            'GET /monitors': lambda: list_monitors(),
             'GET /monitors/{id}': lambda: get_monitor(path_params.get('id')), 
             'DELETE /monitors/{id}': lambda: delete_monitor(path_params.get('id')), 
             'PATCH /monitors/{id}': lambda: update_monitor(path_params.get('id'), body), 

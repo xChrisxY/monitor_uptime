@@ -4,6 +4,7 @@
 .terraform/
 .terraform.lock.hcl
 *.tfvars
+*.tfplan
 crash.log
 
 # Build artifacts
@@ -27,3 +28,4 @@ Thumbs.db
 docs/
 .claude
 *.md
+*.json

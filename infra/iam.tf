@@ -8,7 +8,7 @@ data "aws_iam_policy_document" "lambda_assume_role" {
 
     principals {
       type = "Service"
-      identifiers = [ "lambda:amazonaws.com" ]
+      identifiers = [ "lambda.amazonaws.com" ]
     }
 
     actions = [ "sts:AssumeRole" ]
@@ -55,7 +55,7 @@ resource "aws_iam_role_policy_attachment" "api_lambda_logs" {
 # ROL PARA LAMBDA CHECKER
 resource "aws_iam_role" "checker_lambda" {
   name = "${var.project_name}-checker-role"
-  assume_role_policy = data.aws_iam_policy_document.api_lambda_permissions.json
+  assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
 }
 
 data "aws_iam_policy_document" "checker_lambda_permissions" {
@@ -81,7 +81,7 @@ data "aws_iam_policy_document" "checker_lambda_permissions" {
 resource "aws_iam_role_policy" "checker_lambda" {
   name = "${var.project_name}-checker-policy"
   role = aws_iam_role.checker_lambda.id
-  policy = data.aws_iam_policy_document.api_lambda_permissions.json
+  policy = data.aws_iam_policy_document.checker_lambda_permissions.json
 }
 
 resource "aws_iam_role_policy_attachment" "checker_lambda_logs" {

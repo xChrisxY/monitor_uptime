@@ -20,7 +20,7 @@ resource "aws_scheduler_schedule" "checker" {
   # Target: La Lambda Checker
   target {
     arn = aws_lambda_function.checker.arn
-    role_arn = aws_iam_role.checker_lambda.arn
+    role_arn = aws_iam_role.scheduler.arn
 
     # Payload que recibe la Lambda
     input = jsonencode({

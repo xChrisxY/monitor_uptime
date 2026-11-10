@@ -2,13 +2,14 @@
 
 data "archive_file" "api_lambda" {
   type = "zip"
-  source_file = "${path.module}/../src/api/handler.py"
+  #source_file = "${path.module}/../src/api/handler.py"
+  source_dir = "${path.module}/../src/api"
   output_path = "${path.module}/build/api.zip"
 }
 
 data "archive_file" "checker_lambda" {
   type = "zip" 
-  source_file = "${path.module}/../src/checker/handler.py"
+  source_dir = "${path.module}/../src/checker"
   output_path = "${path.module}/build/checker.zip"
 }
 
@@ -74,7 +75,7 @@ resource "aws_lambda_function" "checker" {
   description = "Revisa el estado de los sitios monitoreados"
 
   # Código
-  filename = data.archive_file.checker_lambda
+  filename = data.archive_file.checker_lambda.output_path
   source_code_hash = data.archive_file.checker_lambda.output_base64sha256
   handler = "handler.lambda_handler"
   runtime = "python3.12"

@@ -5,7 +5,7 @@ Recibe eventos de API Gateway (HTTP API, payload v2.0)
 import json
 from utils import *
 from config import *
-from botocore.exeptions import ClientError
+from botocore.exceptions import ClientError
 
 def create_monitor(body):
       
